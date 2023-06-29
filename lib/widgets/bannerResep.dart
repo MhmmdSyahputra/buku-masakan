@@ -1,8 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodies/utils/myColorApp.dart';
-import 'package:foodies/views/resep/screenDetailResep.dart';
+import 'package:foodies/views/addMenu/resep/screenDetailResep.dart';
 
 class BannerResep extends StatefulWidget {
   final data;
@@ -13,6 +13,10 @@ class BannerResep extends StatefulWidget {
 }
 
 class _BannerResepState extends State<BannerResep> {
+  int like = Random().nextInt(100) + 50;
+  bool statusLike = false;
+  int disLike = Random().nextInt(60) + 20;
+  bool statusDisLike = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +30,7 @@ class _BannerResepState extends State<BannerResep> {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(widget.data['cover']),
+            image: AssetImage(widget.data.cover),
           ),
         ),
         child: Container(
@@ -61,7 +65,7 @@ class _BannerResepState extends State<BannerResep> {
                       width: 10,
                     ),
                     Text(
-                      widget.data['user'][0],
+                      widget.data.user[0],
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -74,7 +78,7 @@ class _BannerResepState extends State<BannerResep> {
               Padding(
                 padding: EdgeInsets.only(right: 30, bottom: 10),
                 child: Text(
-                  widget.data['judul'],
+                  widget.data.judul,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -86,32 +90,58 @@ class _BannerResepState extends State<BannerResep> {
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.thumb_up,
-                      size: 20,
-                      color: Colors.white,
+                    InkWell(
+                      onTap: () => setState(() {
+                        if (!statusLike) {
+                          like++;
+                          statusLike = true;
+                        } else {
+                          statusLike = false;
+                          like--;
+                        }
+                      }),
+                      child: Icon(
+                        Icons.thumb_up,
+                        size: 20,
+                        color: statusLike
+                            ? ColorConstants.primaryColor
+                            : Colors.white,
+                      ),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
-                      '1',
+                      '${like}',
                       style: TextStyle(
                           color: ColorConstants.textWhite, fontSize: 20),
                     ),
                     SizedBox(
                       width: 20,
                     ),
-                    Icon(
-                      Icons.thumb_down,
-                      size: 20,
-                      color: Colors.white,
+                    InkWell(
+                      onTap: () => setState(() {
+                        if (!statusDisLike) {
+                          disLike++;
+                          statusDisLike = true;
+                        } else {
+                          statusDisLike = false;
+                          disLike--;
+                        }
+                      }),
+                      child: Icon(
+                        Icons.thumb_down,
+                        size: 20,
+                        color: statusDisLike
+                            ? ColorConstants.primaryColor
+                            : Colors.white,
+                      ),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
-                      '1',
+                      '${disLike}',
                       style: TextStyle(
                           color: ColorConstants.textWhite, fontSize: 20),
                     ),

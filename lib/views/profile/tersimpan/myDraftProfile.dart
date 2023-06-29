@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
+import 'package:foodies/providers/LoginRegisProvider.dart';
+import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/widgets/cardMyDraft.dart';
+import 'package:foodies/widgets/pageEmpty.dart';
+import 'package:provider/provider.dart';
 
 class FoodSnapProfile extends StatefulWidget {
   const FoodSnapProfile({super.key});
@@ -14,6 +19,19 @@ class FoodSnapProfile extends StatefulWidget {
 class _FoodSnapProfileState extends State<FoodSnapProfile> {
   @override
   Widget build(BuildContext context) {
+    final provResep = Provider.of<ResepProvider>(context);
+    final provIdUser = Provider.of<UserLoginProvider>(context);
+    final user = Provider.of<UserLoginProvider>(context)
+        .getUserById(provIdUser.idUserDoLogin);
+
+    final checkMyDraf = provResep.resepList
+        .where((res) =>
+            res.status == 'draft' &&
+            res.user[0] == user.username &&
+            res.user[1] == user.email)
+        .map((res) {})
+        .toList()
+        .length;
     return Column(
       children: [
         Container(
@@ -46,52 +64,26 @@ class _FoodSnapProfileState extends State<FoodSnapProfile> {
             ],
           ),
         ),
-        Container(
-          child: Icon(
-            Icons.food_bank,
-            size: 200,
-          ),
-        ),
-        Container(
-          child: Column(
-            children: [
-              Text(
-                'Yuk kirim Fooosnap',
-                style: TextStyle(
-                    color: ColorConstants.textWhite,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                textAlign: TextAlign.center,
-                'Mengirim Cooksnap membantu mencatat perjalanan memasakmu dan membagikan pengalamanmu ke komunitas.Yuk jelajahi setiap resep untuk menemukan inspirasi!',
-                style: TextStyle(
-                  color: ColorConstants.textWhite,
+        checkMyDraf > 0
+            ? Column(
+                children: provResep.resepList
+                    .where((res) =>
+                        res.status == 'draft' &&
+                        res.user[0] == user.username &&
+                        res.user[1] == user.email)
+                    .map((res) {
+                  return CardMyDraft(data: res);
+                }).toList(),
+              )
+            : PageEmtpyCustom(
+                icon: Icon(
+                  Icons.food_bank,
+                  size: 200,
                 ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-            margin: EdgeInsets.symmetric(vertical: 30),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            width: double.infinity,
-            height: 60,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text(
-                'Temukan Inspirasi Resep',
-                style: TextStyle(fontSize: 18, color: ColorConstants.textBlack),
-              ),
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  primary: Color(0XFFF0F0F0)),
-            )),
+                title: 'Yuk kirim Foodsnap',
+                subtitle:
+                    'Mengirim Cooksnap membantu mencatat perjalanan memasakmu dan membagikan pengalamanmu ke komunitas.Yuk jelajahi setiap resep untuk menemukan inspirasi!',
+                txtButton: 'Temukan Inspirasi Resep'),
       ],
     );
   }

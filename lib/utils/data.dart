@@ -12,6 +12,13 @@ List listResep = [
   {
     'user': ['bintang sinaga', '@bangnaga52'],
     'judul': 'Spaghetti Aglio e Olio',
+    'cerita': [
+      'lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit',
+      'jawa'
+    ],
+    'porsi': '5',
+    'lamaWaktu': '1 jam 30 mnenit',
+    'status': 'draft',
     'cover': 'assets/images/imgResep/Spaghetti.png',
     'bahan': [
       '200 gram spaghetti',
@@ -34,6 +41,13 @@ List listResep = [
   {
     'user': ['John Doe', '@johndoe'],
     'judul': 'Mie Goreng Spesial',
+    'cerita': [
+      'lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit',
+      'jawa'
+    ],
+    'porsi': '5',
+    'lamaWaktu': '1 jam 30 mnenit',
+    'status': 'publish',
     'cover': 'assets/images/imgResep/MieGorengSpesial.png',
     'bahan': [
       '2 bungkus mie instan',
@@ -61,6 +75,13 @@ List listResep = [
   {
     'user': ['Jane Smith', '@janesmith'],
     'judul': 'Pancake Pisang',
+    'cerita': [
+      'lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit',
+      'jawa'
+    ],
+    'porsi': '5',
+    'lamaWaktu': '1 jam 30 mnenit',
+    'status': 'publish',
     'cover': 'assets/images/imgResep/PancakePisang.png',
     'bahan': [
       '1 buah pisang matang, dihaluskan',
@@ -85,6 +106,13 @@ List listResep = [
   {
     'user': ['Rina Fitriani', '@rinafitriani'],
     'judul': 'Tumis Kangkung',
+    'cerita': [
+      'lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit',
+      'jawa'
+    ],
+    'porsi': '5',
+    'lamaWaktu': '1 jam 30 mnenit',
+    'status': 'publish',
     'cover': 'assets/images/imgResep/TumisKangkung.png',
     'bahan': [
       '1 ikat kangkung, petik daunnya',
@@ -106,6 +134,13 @@ List listResep = [
   {
     'user': ['Ahmad Ibrahim', '@ahmadi'],
     'judul': 'Chicken Teriyaki',
+    'cerita': [
+      'lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit lorem ipsum dolor amet sit',
+      'jawa'
+    ],
+    'porsi': '5',
+    'lamaWaktu': '1 jam 30 mnenit',
+    'status': 'publish',
     'cover': 'assets/images/imgResep/ChickenTeriyaki.png',
     'bahan': [
       '500 gram daging ayam fillet, potong kotak',

@@ -6,7 +6,7 @@ class UserLoginProvider with ChangeNotifier {
     UserLoginModel(
         id: '12345',
         username: 'Reza Hermawan',
-        email: 'rezawaras5@gmail.com',
+        email: 'reza@gmail.com',
         password: 'reza'),
   ];
 

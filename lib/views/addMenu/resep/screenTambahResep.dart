@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/model/resepModel.dart';
+import 'package:foodies/providers/LoginRegisProvider.dart';
+import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:provider/provider.dart';
 
 class ScreenTambahResep extends StatefulWidget {
-  const ScreenTambahResep({super.key});
+  final data;
+  const ScreenTambahResep({super.key, this.data});
 
   @override
   State<ScreenTambahResep> createState() => _ScreenTambahResepState();
@@ -11,21 +16,87 @@ class ScreenTambahResep extends StatefulWidget {
 class _ScreenTambahResepState extends State<ScreenTambahResep> {
   int _inputBahan = 2;
   int _inputStep = 1;
-  // membuat fungsi setstate
+
+  final TextEditingController _inputJudulController = TextEditingController();
+  final TextEditingController _inputCeritaController = TextEditingController();
+  final TextEditingController _inputDaerahController = TextEditingController();
+  final TextEditingController _inputPorsiController = TextEditingController();
+  final TextEditingController _inputWaktuController = TextEditingController();
+
+  final List<TextEditingController> _inputBahanControllerList = [];
+  final List<TextEditingController> _inputStepControllerList = [];
+
+  @override
+  void initState() {
+    super.initState();
+// Memasukkan data dari widget.data ke dalam TextEditingController jika widget.data ada
+    if (widget.data != null) {
+      _inputJudulController.text = widget.data.judul ?? '';
+      _inputCeritaController.text = widget.data.cerita[0] ?? '';
+      _inputDaerahController.text = widget.data.cerita[1] ?? '';
+      _inputPorsiController.text = widget.data.porsi ?? '';
+      _inputWaktuController.text = widget.data.lamaWaktu ?? '';
+
+      _inputBahan = widget.data.bahan.length;
+      // Memasukkan data bahan ke dalam TextEditingController
+      for (int i = 0; i < _inputBahan; i++) {
+        final controller = TextEditingController(
+          text: i < widget.data.bahan.length ? widget.data.bahan[i] : '',
+        );
+        _inputBahanControllerList.add(controller);
+      }
+
+      _inputStep = widget.data.step.length;
+      // Memasukkan data langkah ke dalam TextEditingController
+      for (int i = 0; i < _inputStep; i++) {
+        final controller = TextEditingController(
+          text: i < widget.data.step.length ? widget.data.step[i] : '',
+        );
+        _inputStepControllerList.add(controller);
+      }
+      return;
+    }
+
+    for (int i = 0; i < _inputBahan; i++) {
+      _inputBahanControllerList.add(TextEditingController());
+    }
+    for (int i = 0; i < _inputStep; i++) {
+      _inputStepControllerList.add(TextEditingController());
+    }
+  }
+
+  @override
+  void dispose() {
+    for (var controller in _inputBahanControllerList) {
+      controller.dispose();
+    }
+    for (var controller in _inputStepControllerList) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
   void _addInputBahan() {
     setState(() {
       _inputBahan++;
+      _inputBahanControllerList.add(TextEditingController());
     });
   }
 
   void _addInputStep() {
     setState(() {
       _inputStep++;
+      _inputStepControllerList.add(TextEditingController());
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final provResep = Provider.of<ResepProvider>(context);
+    final provIdUser = Provider.of<UserLoginProvider>(context);
+    final user = Provider.of<UserLoginProvider>(context)
+        .getUserById(provIdUser.idUserDoLogin);
+
     return Scaffold(
       backgroundColor: ColorConstants.themeColor,
       appBar: AppBar(
@@ -33,11 +104,74 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(onPressed: () {}, child: Text('Simpan')),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    primary: ColorConstants.primaryColor,
+                    padding: const EdgeInsets.symmetric(horizontal: 10)),
+                onPressed: () {
+                  List<String> bahanList = [];
+                  for (var controller in _inputBahanControllerList) {
+                    bahanList.add(controller.text);
+                  }
+                  List<String> stepList = [];
+                  for (var controller in _inputStepControllerList) {
+                    stepList.add(controller.text);
+                  }
+                  provResep.addResep(ResepModel(
+                    user: [user.username, user.email],
+                    judul: _inputJudulController.text,
+                    cerita: [
+                      _inputCeritaController.text,
+                      _inputDaerahController.text
+                    ],
+                    porsi: _inputPorsiController.text,
+                    lamaWaktu: _inputWaktuController.text,
+                    status: 'draft',
+                    cover: 'cover',
+                    bahan: bahanList,
+                    step: stepList,
+                  ));
+                },
+                child: Text('Simpan')),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(onPressed: () {}, child: Text('Terbitkan')),
+            child: ElevatedButton(
+              onPressed: () {
+                List<String> bahanList = [];
+                for (var controller in _inputBahanControllerList) {
+                  bahanList.add(controller.text);
+                }
+                List<String> stepList = [];
+                for (var controller in _inputStepControllerList) {
+                  stepList.add(controller.text);
+                }
+                provResep.addResep(ResepModel(
+                  user: [user.username, user.email],
+                  judul: _inputJudulController.text,
+                  cerita: [
+                    _inputCeritaController.text,
+                    _inputDaerahController.text
+                  ],
+                  porsi: _inputPorsiController.text,
+                  lamaWaktu: _inputWaktuController.text,
+                  status: 'publish',
+                  cover: 'cover',
+                  bahan: bahanList,
+                  step: stepList,
+                ));
+              },
+              child: Text('Terbitkan'),
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  primary: Colors.green,
+                  padding: const EdgeInsets.symmetric(horizontal: 10)),
+            ),
           ),
           PopupMenuButton<MenuItem>(
               onSelected: (value) {
@@ -64,7 +198,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
                 child: TextField(
-                  // controller: _inputEmailController,
+                  controller: _inputJudulController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
@@ -81,7 +215,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
               Container(
                 margin: EdgeInsets.only(top: 10),
                 child: TextField(
-                  // controller: _inputEmailController,
+                  controller: _inputCeritaController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
@@ -99,7 +233,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
               Container(
                 margin: EdgeInsets.only(bottom: 10),
                 child: TextField(
-                  // controller: _inputEmailController,
+                  controller: _inputDaerahController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
@@ -128,7 +262,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                     ),
                     Expanded(
                       child: TextField(
-                        // controller: _inputEmailController,
+                        controller: _inputPorsiController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(
@@ -160,7 +294,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                     ),
                     Expanded(
                       child: TextField(
-                        // controller: _inputEmailController,
+                        controller: _inputWaktuController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(
@@ -199,8 +333,8 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                               Icons.list,
                               color: ColorConstants.textWhite,
                             ),
-                            title: TextField(
-                              // controller: _inputEmailController,
+                            title: TextFormField(
+                              controller: _inputBahanControllerList[index],
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(
@@ -285,8 +419,8 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                                   )
                                 ],
                               ),
-                              title: TextField(
-                                // controller: _inputEmailController,
+                              title: TextFormField(
+                                controller: _inputStepControllerList[index],
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(

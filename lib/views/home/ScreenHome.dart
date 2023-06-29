@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:foodies/providers/LoginRegisProvider.dart';
+import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/data.dart';
-import 'package:foodies/utils/globalFunction.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/widgets/bannerResep.dart';
+import 'package:foodies/widgets/cardResep.dart';
 import 'package:foodies/widgets/cardTips.dart';
+import 'package:provider/provider.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -15,9 +16,15 @@ class ScreenHome extends StatefulWidget {
 }
 
 class _ScreenHomeState extends State<ScreenHome> {
+  final TextEditingController _inputSeacrhController = TextEditingController();
+
   String? _valueIsiKulkas;
   @override
   Widget build(BuildContext context) {
+    final provIdUser = Provider.of<UserLoginProvider>(context);
+    final user = Provider.of<UserLoginProvider>(context)
+        .getUserById(provIdUser.idUserDoLogin);
+    final provResep = Provider.of<ResepProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -27,12 +34,13 @@ class _ScreenHomeState extends State<ScreenHome> {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    child: Text('Icon'),
+                    width: 70,
+                    child: Image.asset('assets/images/imgApp/logo.png',
+                        fit: BoxFit.fill),
                   ),
                   Expanded(
                     child: TextField(
-                      // controller: _inputEmailUserController,
+                      controller: _inputSeacrhController,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
@@ -42,9 +50,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                           borderRadius: BorderRadius.circular(
                               10), // Ganti dengan radius yang diinginkan
                         ),
+                        hintText: 'Ketik Bahan Bahan',
                         filled: true,
                         fillColor: Color(0xFF9DB2BF),
-                        hintText: 'Ketik Bahan Bahan',
                         hintStyle: TextStyle(
                           color: ColorConstants.textWhite,
                         ),
@@ -54,6 +62,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                     ),
                   ),
                   Container(
+                    width: 50,
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Icon(Icons.chat),
                   ),
@@ -111,7 +120,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Halo Reza',
+                          'Halo ${user.username}',
                           style: TextStyle(
                               fontSize: 14, color: ColorConstants.textWhite),
                         ),
@@ -166,7 +175,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: listResep.map((res) {
+                        children: provResep.resepList
+                            .where((res) => res.status == 'publish')
+                            .map((res) {
                           return BannerResep(data: res);
                         }).toList(),
                       ),
@@ -223,45 +234,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                       crossAxisCount: 2,
                       childAspectRatio: 1.4,
                       children: listResep.take(4).map((res) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(res['cover']),
-                              ),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.black.withOpacity(0.7),
-                                  ],
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        '${res['judul']}',
-                                        style: TextStyle(
-                                            color: ColorConstants.textWhite,
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
+                        return CardResep(data: res);
                       }).toList(),
                     ),
                   ),

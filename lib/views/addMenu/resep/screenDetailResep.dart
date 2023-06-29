@@ -31,7 +31,7 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
                 // height: 200,
                 alignment: Alignment.centerLeft,
                 child: Image.asset(
-                  widget.data['cover'],
+                  widget.data.cover,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -39,7 +39,7 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
             Container(
               margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: Text(
-                '${widget.data['judul']}',
+                '${widget.data.judul}',
                 style: TextStyle(
                     color: ColorConstants.textWhite,
                     fontSize: 22,
@@ -50,11 +50,11 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
               margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: ListTile(
                 title: Text(
-                  '${widget.data['user'][0]}',
+                  '${widget.data.user[0]}',
                   style: TextStyle(color: ColorConstants.textWhite),
                 ),
                 subtitle: Text(
-                  '${widget.data['user'][1]}',
+                  '${widget.data.user[1]}',
                   style: TextStyle(color: ColorConstants.textWhite),
                 ),
                 leading: CircleAvatar(
@@ -81,11 +81,11 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
-                  widget.data['bahan'].length,
+                  widget.data.bahan.length,
                   (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '${index + 1}. ${widget.data['bahan'][index]}',
+                      '${index + 1}. ${widget.data.bahan[index]}',
                       style: TextStyle(color: ColorConstants.textWhite),
                     ),
                   ),
@@ -107,11 +107,11 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
-                  widget.data['step'].length,
+                  widget.data.step.length,
                   (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '${index + 1}. ${widget.data['step'][index]}',
+                      '${index + 1}. ${widget.data.step[index]}',
                       style: TextStyle(color: ColorConstants.textWhite),
                     ),
                   ),

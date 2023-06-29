@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/utils/globalFunction.dart';
@@ -11,6 +13,10 @@ class CardTips extends StatefulWidget {
 }
 
 class _CardTipsState extends State<CardTips> {
+  int like = Random().nextInt(100) + 50;
+  bool statusLike = false;
+  int disLike = Random().nextInt(60) + 20;
+  bool statusDisLike = false;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -88,32 +94,58 @@ class _CardTipsState extends State<CardTips> {
                 Container(
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.thumb_up,
-                        size: 20,
-                        color: Colors.white,
+                      InkWell(
+                        onTap: () => setState(() {
+                          if (!statusLike) {
+                            like++;
+                            statusLike = true;
+                          } else {
+                            statusLike = false;
+                            like--;
+                          }
+                        }),
+                        child: Icon(
+                          Icons.thumb_up,
+                          size: 20,
+                          color: statusLike
+                              ? ColorConstants.primaryColor
+                              : Colors.white,
+                        ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Text(
-                        '1',
+                        '${like}',
                         style: TextStyle(
                             color: ColorConstants.textWhite, fontSize: 20),
                       ),
                       SizedBox(
                         width: 20,
                       ),
-                      Icon(
-                        Icons.thumb_down,
-                        size: 20,
-                        color: Colors.white,
+                      InkWell(
+                        onTap: () => setState(() {
+                          if (!statusDisLike) {
+                            disLike++;
+                            statusDisLike = true;
+                          } else {
+                            statusDisLike = false;
+                            disLike--;
+                          }
+                        }),
+                        child: Icon(
+                          Icons.thumb_down,
+                          size: 20,
+                          color: statusDisLike
+                              ? ColorConstants.primaryColor
+                              : Colors.white,
+                        ),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Text(
-                        '1',
+                        '${disLike}',
                         style: TextStyle(
                             color: ColorConstants.textWhite, fontSize: 20),
                       ),

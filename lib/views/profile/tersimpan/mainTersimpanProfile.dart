@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodies/utils/myColorApp.dart';
-import 'package:foodies/views/profile/tersimpan/foodSnapProfile.dart';
+import 'package:foodies/views/profile/tersimpan/myDraftProfile.dart';
 
 import 'tersimpanProfile.dart';
 
@@ -76,11 +76,11 @@ class _TersimpanMainProfileState extends State<TersimpanMainProfile> {
                     child: Row(
                       children: [
                         Icon(
-                          Icons.camera_enhance,
+                          Icons.drafts,
                           color: ColorConstants.textWhite,
                         ),
                         SizedBox(width: 5.0),
-                        Text('Food Snap',
+                        Text('My Draft',
                             style: TextStyle(color: ColorConstants.textWhite)),
                       ],
                     ),
