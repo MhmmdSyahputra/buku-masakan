@@ -10,6 +10,7 @@ class ResepProvider with ChangeNotifier {
   ResepProvider() {
     _resepList = listResep.map((res) {
       return ResepModel(
+        id: res['id'],
         user: res['user'],
         judul: res['judul'],
         cerita: res['cerita'],
@@ -26,5 +27,16 @@ class ResepProvider with ChangeNotifier {
   void addResep(ResepModel data) {
     _resepList.add(data);
     ChangeNotifier();
+  }
+
+  // Metode untuk mengupdate data user berdasarkan ID
+  void updateResep(String id, ResepModel newData) {
+    final index = _resepList.indexWhere((res) => res.id == id);
+    if (index >= 0) {
+      _resepList[index] = newData;
+      notifyListeners();
+    } else {
+      throw Exception('User not found');
+    }
   }
 }

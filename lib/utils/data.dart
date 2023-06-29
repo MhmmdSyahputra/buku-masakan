@@ -10,6 +10,7 @@ List listIsiKulkas = [
 
 List listResep = [
   {
+    'id': 'enrvu3un3v',
     'user': ['bintang sinaga', '@bangnaga52'],
     'judul': 'Spaghetti Aglio e Olio',
     'cerita': [
@@ -39,6 +40,7 @@ List listResep = [
     ]
   },
   {
+    'id': '3i493h84n',
     'user': ['John Doe', '@johndoe'],
     'judul': 'Mie Goreng Spesial',
     'cerita': [
@@ -73,6 +75,7 @@ List listResep = [
     ]
   },
   {
+    'id': '3rv3rv339sd',
     'user': ['Jane Smith', '@janesmith'],
     'judul': 'Pancake Pisang',
     'cerita': [
@@ -104,6 +107,7 @@ List listResep = [
     ]
   },
   {
+    'id': '003j9c34v',
     'user': ['Rina Fitriani', '@rinafitriani'],
     'judul': 'Tumis Kangkung',
     'cerita': [
@@ -132,6 +136,7 @@ List listResep = [
     ]
   },
   {
+    'id': '30jvj340jv3',
     'user': ['Ahmad Ibrahim', '@ahmadi'],
     'judul': 'Chicken Teriyaki',
     'cerita': [

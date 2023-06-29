@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResepModel {
+  final String id;
   final List user;
   final String judul;
   final List cerita;
@@ -12,6 +13,7 @@ class ResepModel {
   final List step;
 
   ResepModel({
+    required this.id,
     required this.user,
     required this.judul,
     required this.cerita,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies/model/resepModel.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/providers/resepProvider.dart';
+import 'package:foodies/utils/globalFunction.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:provider/provider.dart';
 
@@ -67,6 +68,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
 
   @override
   void dispose() {
+    _inputJudulController.dispose();
     for (var controller in _inputBahanControllerList) {
       controller.dispose();
     }
@@ -112,6 +114,37 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                     primary: ColorConstants.primaryColor,
                     padding: const EdgeInsets.symmetric(horizontal: 10)),
                 onPressed: () {
+                  // jika ada nerima data maka update data
+                  if (widget.data != null) {
+                    List<String> bahanList = [];
+                    for (var controller in _inputBahanControllerList) {
+                      bahanList.add(controller.text);
+                    }
+                    List<String> stepList = [];
+                    for (var controller in _inputStepControllerList) {
+                      stepList.add(controller.text);
+                    }
+                    provResep.updateResep(
+                        widget.data.id,
+                        ResepModel(
+                          id: widget.data.id,
+                          user: [user.username, user.email],
+                          judul: _inputJudulController.text,
+                          cerita: [
+                            _inputCeritaController.text,
+                            _inputDaerahController.text
+                          ],
+                          porsi: _inputPorsiController.text,
+                          lamaWaktu: _inputWaktuController.text,
+                          status: 'draft',
+                          cover: 'cover',
+                          bahan: bahanList,
+                          step: stepList,
+                        ));
+                    return;
+                  }
+
+                  // jika tidak nerima data maka create  new data
                   List<String> bahanList = [];
                   for (var controller in _inputBahanControllerList) {
                     bahanList.add(controller.text);
@@ -121,6 +154,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                     stepList.add(controller.text);
                   }
                   provResep.addResep(ResepModel(
+                    id: generateId().toString(),
                     user: [user.username, user.email],
                     judul: _inputJudulController.text,
                     cerita: [
@@ -150,6 +184,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                   stepList.add(controller.text);
                 }
                 provResep.addResep(ResepModel(
+                  id: generateId().toString(),
                   user: [user.username, user.email],
                   judul: _inputJudulController.text,
                   cerita: [

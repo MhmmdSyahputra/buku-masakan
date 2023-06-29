@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:foodies/model/LoginModel.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
+import 'package:foodies/utils/globalFunction.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/login/screenLogin.dart';
 import 'package:provider/provider.dart';
@@ -20,14 +21,6 @@ class _ScreenRegisterState extends State<ScreenRegister> {
   final TextEditingController _inputEmailController = TextEditingController();
   final TextEditingController _inputPasswordController =
       TextEditingController();
-
-  int generateId() {
-    DateTime now = DateTime.now();
-    int milliseconds = now.millisecondsSinceEpoch;
-    // membuat nilai acak berdasarkan waktu dalam milidetik dan tanggal
-    Random random = Random(milliseconds);
-    return random.nextInt(100);
-  }
 
   @override
   Widget build(BuildContext context) {
