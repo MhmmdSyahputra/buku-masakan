@@ -1,12 +1,23 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:foodies/model/LoginModel.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/globalFunction.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/login/screenLogin.dart';
+import 'package:foodies/widgets/customDialog.dart';
 import 'package:provider/provider.dart';
+
+void showCustomDialog(BuildContext context, String title, String subtile,
+    Color color, Icon icon) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return CustomDialog(
+          title: title, subtile: subtile, color: color, icon: icon);
+    },
+  );
+}
 
 class ScreenRegister extends StatefulWidget {
   const ScreenRegister({super.key});
@@ -134,138 +145,19 @@ class _ScreenRegisterState extends State<ScreenRegister> {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => ScreenLogin()));
 
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Container(
-                                        height: 180,
-                                        width: 250,
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(5, 50, 5, 5),
-                                          child: Column(
-                                            children: [
-                                              Text('Berhasil',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  textAlign: TextAlign.center),
-                                              SizedBox(height: 10),
-                                              Text('Registrasi Akun Berhasil',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ),
-                                                  textAlign: TextAlign.center),
-                                              SizedBox(height: 20),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('OK'),
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        Colors.green,
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 15,
-                                                        horizontal: 35)),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                          top: -30,
-                                          child: CircleAvatar(
-                                            radius: 30,
-                                            backgroundColor: Colors.white,
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.green,
-                                              radius: 26,
-                                              child: Icon(Icons.check,
-                                                  size: 30,
-                                                  color: Colors.white),
-                                            ),
-                                          )),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
+                            showCustomDialog(
+                                context,
+                                'Berhasil',
+                                'Akun Berhasil Terdaftar',
+                                Colors.green,
+                                Icon(Icons.check));
                           } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Container(
-                                        height: 180,
-                                        width: 250,
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(5, 50, 5, 5),
-                                          child: Column(
-                                            children: [
-                                              Text('Gagal!',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  textAlign: TextAlign.center),
-                                              SizedBox(height: 10),
-                                              Text('Lengkapi Data Anda Dahulu!',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ),
-                                                  textAlign: TextAlign.center),
-                                              SizedBox(height: 20),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('OK'),
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor: Colors.red,
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 15,
-                                                        horizontal: 35)),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                          top: -30,
-                                          child: CircleAvatar(
-                                            radius: 30,
-                                            backgroundColor: Colors.white,
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.red,
-                                              radius: 26,
-                                              child: Icon(Icons.close,
-                                                  size: 30,
-                                                  color: Colors.white),
-                                            ),
-                                          )),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
+                            showCustomDialog(
+                                context,
+                                'Gagal',
+                                'Lengkapi data anda dahulu!',
+                                Colors.red,
+                                Icon(Icons.close));
                           }
                         },
                         child: Text(

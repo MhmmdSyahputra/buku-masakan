@@ -4,7 +4,19 @@ import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/globalFunction.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/widgets/customDialog.dart';
 import 'package:provider/provider.dart';
+
+void showCustomDialog(BuildContext context, String title, String subtile,
+    Color color, Icon icon) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return CustomDialog(
+          title: title, subtile: subtile, color: color, icon: icon);
+    },
+  );
+}
 
 class ScreenTambahResep extends StatefulWidget {
   final data;
@@ -141,6 +153,13 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                           bahan: bahanList,
                           step: stepList,
                         ));
+                    showCustomDialog(
+                        context,
+                        'Berhasil',
+                        'Data Resep Berhasil Di Update',
+                        Colors.green,
+                        Icon(Icons.check));
+                    Navigator.of(context).pop();
                     return;
                   }
 
@@ -168,6 +187,13 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                     bahan: bahanList,
                     step: stepList,
                   ));
+                  showCustomDialog(
+                      context,
+                      'Berhasil',
+                      'Data Resep Berhasil Di Tambah',
+                      Colors.green,
+                      Icon(Icons.check));
+                  Navigator.of(context).pop();
                 },
                 child: Text('Simpan')),
           ),
@@ -175,6 +201,43 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
+                if (widget.data != null) {
+                  List<String> bahanList = [];
+                  for (var controller in _inputBahanControllerList) {
+                    bahanList.add(controller.text);
+                  }
+                  List<String> stepList = [];
+                  for (var controller in _inputStepControllerList) {
+                    stepList.add(controller.text);
+                  }
+                  provResep.updateResep(
+                      widget.data.id,
+                      ResepModel(
+                        id: widget.data.id,
+                        user: [user.username, user.email],
+                        judul: _inputJudulController.text,
+                        cerita: [
+                          _inputCeritaController.text,
+                          _inputDaerahController.text
+                        ],
+                        porsi: _inputPorsiController.text,
+                        lamaWaktu: _inputWaktuController.text,
+                        status: 'publish',
+                        cover: 'cover',
+                        bahan: bahanList,
+                        step: stepList,
+                      ));
+                  showCustomDialog(
+                      context,
+                      'Berhasil',
+                      'Data Resep Berhasil Di Publish',
+                      Colors.green,
+                      Icon(Icons.check));
+                  Navigator.of(context).pop();
+                  return;
+                }
+
+                // jika tidak nerima data maka create  new data
                 List<String> bahanList = [];
                 for (var controller in _inputBahanControllerList) {
                   bahanList.add(controller.text);
@@ -198,6 +261,13 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
                   bahan: bahanList,
                   step: stepList,
                 ));
+                showCustomDialog(
+                    context,
+                    'Berhasil',
+                    'Data Resep Berhasil Di Publish',
+                    Colors.green,
+                    Icon(Icons.check));
+                Navigator.of(context).pop();
               },
               child: Text('Terbitkan'),
               style: ElevatedButton.styleFrom(

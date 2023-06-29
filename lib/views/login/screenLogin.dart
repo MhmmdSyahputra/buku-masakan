@@ -3,7 +3,19 @@ import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/bottomNavigation.dart';
 import 'package:foodies/views/regis/screenRegister.dart';
+import 'package:foodies/widgets/customDialog.dart';
 import 'package:provider/provider.dart';
+
+void showCustomDialog(BuildContext context, String title, String subtile,
+    Color color, Icon icon) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return CustomDialog(
+          title: title, subtile: subtile, color: color, icon: icon);
+    },
+  );
+}
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
@@ -60,14 +72,14 @@ class _ScreenLoginState extends State<ScreenLogin> {
                     child: TextField(
                       controller: _inputEmailController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
+                        prefixIcon: Icon(Icons.email),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(
                               20), // Ganti dengan radius yang diinginkan
                         ),
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: 'Username',
+                        hintText: 'Email',
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                       ),
@@ -132,71 +144,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
                                 builder: (context) => BottomNavMain()));
                             return;
                           } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Container(
-                                        height: 180,
-                                        width: 250,
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(5, 50, 5, 5),
-                                          child: Column(
-                                            children: [
-                                              Text('Gagal!',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  textAlign: TextAlign.center),
-                                              SizedBox(height: 10),
-                                              Text('Username/Password Salah!',
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ),
-                                                  textAlign: TextAlign.center),
-                                              SizedBox(height: 20),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Text('OK'),
-                                                style: ElevatedButton.styleFrom(
-                                                    backgroundColor: Colors.red,
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 15,
-                                                        horizontal: 35)),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                          top: -30,
-                                          child: CircleAvatar(
-                                            radius: 30,
-                                            backgroundColor: Colors.white,
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.red,
-                                              radius: 26,
-                                              child: Icon(Icons.close,
-                                                  size: 30,
-                                                  color: Colors.white),
-                                            ),
-                                          )),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
+                            showCustomDialog(
+                                context,
+                                'Gagal',
+                                'Email/Password Salah!',
+                                Colors.red,
+                                Icon(Icons.close));
                           }
                         },
                         child: Text(

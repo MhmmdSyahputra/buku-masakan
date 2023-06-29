@@ -29,6 +29,11 @@ class ResepProvider with ChangeNotifier {
     ChangeNotifier();
   }
 
+  void removeResep(ResepModel data) {
+    _resepList.remove(data);
+    ChangeNotifier();
+  }
+
   // Metode untuk mengupdate data user berdasarkan ID
   void updateResep(String id, ResepModel newData) {
     final index = _resepList.indexWhere((res) => res.id == id);

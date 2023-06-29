@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/views/login/screenLogin.dart';
 import 'package:foodies/views/profile/resep/mainResepProfile.dart';
 import 'package:foodies/views/profile/tersimpan/mainTersimpanProfile.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +65,10 @@ class _ScreenProfileState extends State<ScreenProfile> {
               onSelected: (value) {
                 if (value == MenuItem.Profil) {
                 } else if (value == MenuItem.Pengaturan) {
-                } else if (value == MenuItem.Logout) {}
+                } else if (value == MenuItem.Logout) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ScreenLogin()));
+                }
               },
               itemBuilder: (context) => [
                     PopupMenuItem(
