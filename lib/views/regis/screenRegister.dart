@@ -140,7 +140,8 @@ class _ScreenRegisterState extends State<ScreenRegister> {
                                 id: generateId().toString(),
                                 username: _inputUsernameController.text,
                                 email: _inputEmailController.text,
-                                password: _inputPasswordController.text));
+                                password: _inputPasswordController.text,
+                                mySave: []));
 
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => ScreenLogin()));

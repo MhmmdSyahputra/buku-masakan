@@ -42,7 +42,7 @@ class _ScreenTambahResepState extends State<ScreenTambahResep> {
   @override
   void initState() {
     super.initState();
-// Memasukkan data dari widget.data ke dalam TextEditingController jika widget.data ada
+    // Memasukkan data dari widget.data ke dalam TextEditingController jika widget.data ada
     if (widget.data != null) {
       _inputJudulController.text = widget.data.judul ?? '';
       _inputCeritaController.text = widget.data.cerita[0] ?? '';

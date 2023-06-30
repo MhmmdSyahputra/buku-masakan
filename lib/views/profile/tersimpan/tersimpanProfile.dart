@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:foodies/providers/LoginRegisProvider.dart';
+import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/widgets/cardListProduct.dart';
+import 'package:foodies/widgets/pageEmpty.dart';
+import 'package:provider/provider.dart';
 
 class TersimpanProfile extends StatefulWidget {
   const TersimpanProfile({super.key});
@@ -13,6 +16,24 @@ class TersimpanProfile extends StatefulWidget {
 class _TersimpanProfileState extends State<TersimpanProfile> {
   @override
   Widget build(BuildContext context) {
+    final provResep = Provider.of<ResepProvider>(context);
+    final provIdUser = Provider.of<UserLoginProvider>(context);
+    final user = Provider.of<UserLoginProvider>(context)
+        .getUserById(provIdUser.idUserDoLogin);
+
+    // simpan list iditem yg disimpan di akun user yg login
+    List mySaveId = provIdUser.userLoginList
+        .where((res) => res.id == user.id)
+        .expand((res) => res.mySave)
+        .toList();
+
+    // cek apakah data ada atau tidak
+    final checkMyDraf = provResep.resepList
+        .where((res) => mySaveId.contains(res.id))
+        .map((res) {})
+        .toList()
+        .length;
+
     return Column(
       children: [
         Container(
@@ -45,35 +66,25 @@ class _TersimpanProfileState extends State<TersimpanProfile> {
             ],
           ),
         ),
-        Container(
-          child: Icon(
-            Icons.book,
-            size: 200,
-          ),
-        ),
-        Container(
-          child: Column(
-            children: [
-              Text(
-                'Belum ada resep yang tersimpan',
-                style: TextStyle(
-                    color: ColorConstants.textWhite,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                textAlign: TextAlign.center,
-                'kamu belum menyimpan resep apa pun. cari dan simpan resep untuk melihatnya disini!',
-                style: TextStyle(
-                  color: ColorConstants.textWhite,
+        // jika data ada maka tampilkan
+        checkMyDraf > 0
+            ? Column(
+                children: provResep.resepList
+                    .where((res) => mySaveId.contains(res.id))
+                    .map((res) {
+                  return CardListProduct(action: 'view', data: res);
+                }).toList(),
+              )
+            //jika tidak ada maka tampilkan page empty
+            : PageEmtpyCustom(
+                icon: Icon(
+                  Icons.book_rounded,
+                  size: 200,
                 ),
-              ),
-            ],
-          ),
-        ),
+                title: 'Belum ada resep yang tersimpan',
+                subtitle:
+                    'Kamu belum menyimpan resep apa pun. cari dan simpan resep untuk melihatnya disini!',
+                txtButton: 'Cari Item'),
       ],
     );
   }

@@ -1,8 +1,10 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:foodies/providers/LoginRegisProvider.dart';
+import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/addMenu/resep/screenDetailResep.dart';
+import 'package:provider/provider.dart';
 
 class BannerResep extends StatefulWidget {
   final data;
@@ -19,6 +21,18 @@ class _BannerResepState extends State<BannerResep> {
   bool statusDisLike = false;
   @override
   Widget build(BuildContext context) {
+    final provUser = Provider.of<UserLoginProvider>(context);
+    final user = Provider.of<UserLoginProvider>(context)
+        .getUserById(provUser.idUserDoLogin);
+
+    final provResep = Provider.of<ResepProvider>(context);
+
+    // simpan list iditem yg disimpan di akun user yg login
+    List mySaveId = provUser.userLoginList
+        .where((res) => res.id == user.id)
+        .expand((res) => res.mySave)
+        .toList();
+
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ScreenDetailResep(data: widget.data))),
@@ -100,21 +114,28 @@ class _BannerResepState extends State<BannerResep> {
                           like--;
                         }
                       }),
-                      child: Icon(
-                        Icons.thumb_up,
-                        size: 20,
-                        color: statusLike
-                            ? ColorConstants.primaryColor
-                            : Colors.white,
+                      child: Container(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.thumb_up,
+                              size: 20,
+                              color: statusLike
+                                  ? ColorConstants.primaryColor
+                                  : Colors.white,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${like}',
+                              style: TextStyle(
+                                  color: ColorConstants.textWhite,
+                                  fontSize: 15),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '${like}',
-                      style: TextStyle(
-                          color: ColorConstants.textWhite, fontSize: 20),
                     ),
                     SizedBox(
                       width: 20,
@@ -129,22 +150,50 @@ class _BannerResepState extends State<BannerResep> {
                           disLike--;
                         }
                       }),
-                      child: Icon(
-                        Icons.thumb_down,
-                        size: 20,
-                        color: statusDisLike
-                            ? ColorConstants.primaryColor
-                            : Colors.white,
+                      child: Container(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.thumb_down,
+                              size: 20,
+                              color: statusDisLike
+                                  ? ColorConstants.primaryColor
+                                  : Colors.white,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              '${disLike}',
+                              style: TextStyle(
+                                  color: ColorConstants.textWhite,
+                                  fontSize: 15),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '${disLike}',
-                      style: TextStyle(
-                          color: ColorConstants.textWhite, fontSize: 20),
-                    ),
+                    Expanded(
+                        child: InkWell(
+                      onTap: () => provUser.saveItem(user.id, widget.data.id),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(
+                            mySaveId.contains(widget.data.id)
+                                ? Icons.bookmark
+                                : Icons.bookmark_add_outlined,
+                            size: 20,
+                            color: statusDisLike
+                                ? ColorConstants.primaryColor
+                                : Colors.white,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                    ))
                   ],
                 ),
               ),

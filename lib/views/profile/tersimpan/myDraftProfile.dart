@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter/widgets.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
-import 'package:foodies/widgets/cardMyDraft.dart';
+import 'package:foodies/widgets/cardListProduct.dart';
 import 'package:foodies/widgets/pageEmpty.dart';
 import 'package:provider/provider.dart';
 
@@ -72,7 +69,7 @@ class _FoodSnapProfileState extends State<FoodSnapProfile> {
                         res.user[0] == user.username &&
                         res.user[1] == user.email)
                     .map((res) {
-                  return CardMyDraft(data: res);
+                  return CardListProduct(action: 'update', data: res);
                 }).toList(),
               )
             : PageEmtpyCustom(

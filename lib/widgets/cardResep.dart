@@ -16,7 +16,7 @@ class CardResep extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(data['cover']),
+            image: AssetImage(data.cover),
           ),
         ),
         child: Container(
@@ -38,7 +38,7 @@ class CardResep extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    '${data['judul']}',
+                    '${data.judul}',
                     style: TextStyle(
                         color: ColorConstants.textWhite,
                         fontWeight: FontWeight.bold),

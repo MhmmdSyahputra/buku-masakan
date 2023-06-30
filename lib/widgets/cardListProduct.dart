@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/views/addMenu/resep/screenDetailResep.dart';
 import 'package:foodies/views/addMenu/resep/screenTambahResep.dart';
 
-class CardMyDraft extends StatefulWidget {
+class CardListProduct extends StatefulWidget {
+  final String action;
   final data;
-  const CardMyDraft({super.key, this.data});
+  const CardListProduct({super.key, this.data, required this.action});
 
   @override
-  State<CardMyDraft> createState() => _CardMyDraftState();
+  State<CardListProduct> createState() => _CardListProductState();
 }
 
-class _CardMyDraftState extends State<CardMyDraft> {
+class _CardListProductState extends State<CardListProduct> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ScreenTambahResep(data: widget.data))),
+      onTap: () => widget.action == 'view'
+          ? Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ScreenDetailResep(data: widget.data)))
+          : Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ScreenTambahResep(data: widget.data))),
       child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -58,10 +61,12 @@ class _CardMyDraftState extends State<CardMyDraft> {
                           ),
                         ),
                         Container(
-                          child: Icon(
-                            Icons.remove_circle_outline,
-                            color: Colors.red,
-                          ),
+                          child: widget.data.action != 'view'
+                              ? Icon(
+                                  Icons.remove_circle_outline,
+                                  color: Colors.red,
+                                )
+                              : null,
                         )
                       ],
                     ),

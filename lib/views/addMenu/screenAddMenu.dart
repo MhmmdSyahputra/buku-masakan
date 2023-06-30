@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/addMenu/resep/screenTambahResep.dart';
+import 'package:foodies/views/addMenu/tips/screenTambahTips.dart';
 
 class ScreeenAddMenu extends StatefulWidget {
   const ScreeenAddMenu({super.key});
@@ -84,7 +85,11 @@ class _ScreeenAddMenuState extends State<ScreeenAddMenu> {
                             ),
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          ScreenTambahTips()));
+                                },
                                 child: Text(
                                   'Tips',
                                   style: TextStyle(

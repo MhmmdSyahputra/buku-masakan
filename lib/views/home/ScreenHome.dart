@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/providers/resepProvider.dart';
+import 'package:foodies/providers/tipsProvider.dart';
 import 'package:foodies/utils/data.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/widgets/bannerResep.dart';
@@ -25,6 +27,18 @@ class _ScreenHomeState extends State<ScreenHome> {
     final user = Provider.of<UserLoginProvider>(context)
         .getUserById(provIdUser.idUserDoLogin);
     final provResep = Provider.of<ResepProvider>(context);
+    final provTips = Provider.of<TipsProvider>(context);
+
+    List shuffledList =
+        List.from(provResep.resepList); // Salin daftar resep ke daftar baru
+    shuffledList.shuffle(Random()); // Acak urutan elemen dalam daftar baru
+
+    // void refreshItem() {
+    //   shuffledList =
+    //       List.from(provResep.resepList); // Salin daftar resep ke daftar baru
+    //   shuffledList.shuffle(Random()); // Acak urutan elemen dalam daftar baru
+    // }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -64,7 +78,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                   Container(
                     width: 50,
                     padding: EdgeInsets.symmetric(horizontal: 5),
-                    child: Icon(Icons.chat),
+                    child: InkWell(
+                        onTap: () => print(_inputSeacrhController.text),
+                        child: Icon(Icons.chat)),
                   ),
                 ],
               ),
@@ -233,7 +249,10 @@ class _ScreenHomeState extends State<ScreenHome> {
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       childAspectRatio: 1.4,
-                      children: listResep.take(4).map((res) {
+                      children: shuffledList
+                          .where((res) => res.status == 'publish')
+                          .take(4)
+                          .map((res) {
                         return CardResep(data: res);
                       }).toList(),
                     ),
@@ -244,7 +263,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () => setState(() {}),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -282,7 +301,7 @@ class _ScreenHomeState extends State<ScreenHome> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: listTips.map((res) {
+                        children: provTips.tipsList.map((res) {
                           return CardTips(data: res);
                         }).toList(),
                       ),

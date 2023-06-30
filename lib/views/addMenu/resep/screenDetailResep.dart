@@ -116,6 +116,43 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
                 ),
               ),
             ),
+            Divider(
+              height: 1,
+              color: ColorConstants.textWhite,
+            ),
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.person,
+                          size: 100,
+                          color: ColorConstants.textWhite,
+                        ),
+                        Container(
+                          child: Text(
+                            'Diterbitkan Oleh',
+                            style: TextStyle(color: ColorConstants.textWhite),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            '${widget.data.user[0]}',
+                            style: TextStyle(
+                                color: ColorConstants.textWhite,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    )
+                  ]),
+            ),
           ],
         ),
       ),

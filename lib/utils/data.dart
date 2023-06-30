@@ -170,45 +170,63 @@ List listResep = [
 
 List listTips = [
   {
+    'id': '',
     'user': ['bintang sinaga', '@bangnaga52'],
     'judul': 'Tips Memasak Steak yang Lezat',
     'imgTips': ['image1.jpg', 'image2.jpg', 'image3.jpg'],
-    'contentTips':
-        'Tips memasak steak yang lezat:\n\n1. Pilihlah potongan daging yang berkualitas baik dan sesuai dengan selera Anda.\n\n2. Pastikan daging dalam keadaan suhu ruangan sebelum dimasak.\n\n3. Bumbui daging dengan garam, lada hitam, dan bumbu pilihan Anda.\n\n4. Panaskan wajan dengan api besar dan tambahkan sedikit minyak atau mentega.\n\n5. Panggang daging sesuai tingkat kematangan yang diinginkan, baik medium rare, medium, atau well-done.\n\n6. Setelah dimasak, biarkan daging istirahat sejenak sebelum dihidangkan.\n\n7. Sajikan steak dengan tambahan saus atau pelengkap seperti mashed potato, sayuran, atau salad sesuai selera.\n\n8. Nikmati steak yang lezat bersama keluarga atau teman-teman Anda.'
+    'step': [
+      'lorem ipsum dolor amat lorem ipsum dolor amat',
+      'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
+    ]
   },
   {
+    'id': '',
     'user': ['angela wijaya', '@angelawijaya'],
     'judul': 'Tips Merawat Tanaman Hias di Dalam Ruangan',
     'imgTips': ['image4.jpg', 'image5.jpg', 'image6.jpg'],
-    'contentTips':
-        'Tips merawat tanaman hias di dalam ruangan:\n\n1. Pilihlah tanaman yang sesuai dengan kondisi ruangan, seperti intensitas cahaya dan suhu.\n\n2. Berikan air pada tanaman secara teratur, tetapi hindari penyiraman berlebihan.\n\n3. Letakkan tanaman di tempat yang mendapatkan cahaya yang cukup, namun hindari sinar matahari langsung.\n\n4. Perhatikan kebersihan daun tanaman dengan membersihkannya dari debu secara berkala.\n\n5. Beri pupuk pada tanaman sesuai dengan jenisnya, sesuai petunjuk yang tertera pada kemasan.\n\n6. Periksa tanaman secara berkala untuk memastikan tidak ada serangga atau penyakit yang mengganggu pertumbuhan tanaman.\n\n7. Jaga kelembapan udara di sekitar tanaman dengan cara menyemprotkan air atau menggunakan pelembap udara jika diperlukan.\n\n8. Berikan perawatan dan kasih sayang pada tanaman hias Anda agar tetap sehat dan indah.'
+    'step': [
+      'lorem ipsum dolor amat lorem ipsum dolor amat',
+      'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
+    ]
   },
   {
+    'id': '',
     'user': ['hendra wibowo', '@hendrawibowo'],
     'judul': 'Tips Mengatur Keuangan Pribadi',
     'imgTips': ['image7.jpg', 'image8.jpg', 'image9.jpg'],
-    'contentTips':
-        'Tips mengatur keuangan pribadi:\n\n1. Buatlah anggaran keuangan bulanan yang mencakup semua pengeluaran dan pendapatan Anda.\n\n2. Catat setiap pengeluaran yang Anda keluarkan untuk memantau arus kas.\n\n3. Prioritaskan pengeluaran yang penting seperti kebutuhan dasar dan pembayaran utang.\n\n4. Selalu sisihkan sebagian pendapatan untuk ditabung atau diinvestasikan.\n\n5. Hindari penggunaan kartu kredit secara berlebihan dan hindari hutang yang tidak perlu.\n\n6. Bandingkan harga sebelum melakukan pembelian besar dan manfaatkan diskon atau promosi yang tersedia.\n\n7. Buatlah tujuan keuangan jangka pendek dan jangka panjang, serta lakukan perencanaan untuk mencapainya.\n\n8. Jaga kedisiplinan dalam mengikuti rencana keuangan yang telah Anda buat dan evaluasi secara berkala.'
+    'step': [
+      'lorem ipsum dolor amat lorem ipsum dolor amat',
+      'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
+    ]
   },
   {
+    'id': '',
     'user': ['melissa tan', '@melissatan'],
     'judul': 'Tips Membangun Kebiasaan Membaca',
     'imgTips': ['image10.jpg', 'image11.jpg', 'image12.jpg'],
-    'contentTips':
-        'Tips membantu membangun kebiasaan membaca:\n\n1. Tetapkan target bacaan yang realistis dan sesuai dengan minat Anda.\n\n2. Tentukan waktu yang khusus untuk membaca setiap harinya, misalnya sebelum tidur atau saat waktu luang.\n\n3. Carilah tempat yang nyaman dan tenang untuk membaca, bebas dari gangguan dan distraksi.\n\n4. Mulailah dengan membaca buku atau artikel yang menarik minat Anda agar lebih mudah termotivasi.\n\n5. Jika merasa sulit berkonsentrasi, coba gunakan teknik membaca fokus seperti membaca dalam interval waktu tertentu atau membuat catatan selama membaca.\n\n6. Diskusikan buku atau bacaan yang Anda nikmati dengan orang lain, seperti keluarga atau teman, untuk berbagi pengalaman dan pandangan.\n\n7. Luangkan waktu untuk menjelajahi berbagai genre buku dan penulis, agar dapat memperluas wawasan dan pemahaman.\n\n8. Tetaplah konsisten dalam membaca dan jadikan kebiasaan membaca sebagai bagian penting dari rutinitas harian Anda.'
+    'step': [
+      'lorem ipsum dolor amat lorem ipsum dolor amat',
+      'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
+    ]
   },
   {
+    'id': '',
     'user': ['david wijaya', '@davidwijaya'],
     'judul': 'Tips Efektif dalam Presentasi',
     'imgTips': ['image13.jpg', 'image14.jpg', 'image15.jpg'],
-    'contentTips':
-        'Tips efektif dalam presentasi:\n\n1. Persiapkan materi presentasi dengan baik dan pastikan memiliki alur yang jelas.\n\n2. Gunakan visual seperti gambar, grafik, atau video untuk memperjelas pesan yang disampaikan.\n\n3. Berikan contoh atau ilustrasi yang relevan untuk memperkuat argumen.\n\n4. Gunakan bahasa tubuh yang positif dan jangan lupa untuk tersenyum.\n\n5. Berinteraksi dengan audiens, ajukan pertanyaan atau lakukan diskusi singkat.\n\n6. Berlatihlah presentasi secara berkala untuk meningkatkan kepercayaan diri dan kemahiran berbicara di depan umum.'
+    'step': [
+      'lorem ipsum dolor amat lorem ipsum dolor amat',
+      'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
+    ]
   },
   {
+    'id': '',
     'user': ['lisa santoso', '@lisasantoso'],
     'judul': 'Tips Membangun Hubungan yang Sehat',
     'imgTips': ['image16.jpg', 'image17.jpg', 'image18.jpg'],
-    'contentTips':
-        'Tips membantu membangun hubungan yang sehat:\n\n1. Komunikasi yang baik adalah kunci dalam hubungan yang sehat. Dengarkan dengan aktif dan jujur dalam berkomunikasi.\n\n2. Saling menghormati dan menghargai perbedaan pendapat, kebutuhan, dan keinginan masing-masing.\n\n3. Berikan dukungan emosional dan saling berbagi tanggung jawab dalam hubungan.\n\n4. Tetap terbuka untuk memperbaiki dan berkembang bersama, serta belajar dari konflik yang muncul.\n\n5. Jaga kepercayaan dengan berkomitmen untuk setia dan jujur satu sama lain.\n\n6. Berikan waktu dan ruang pribadi yang cukup, serta hargai privasi masing-masing.\n\n7. Bersenang-senang dan tertawa bersama, serta menciptakan kenangan indah dalam hubungan.\n\n8. Perhatikan keseimbangan antara memberi dan menerima, serta berikan apresiasi untuk usaha dan kontribusi pasangan dalam hubungan.'
+    'step': [
+      'lorem ipsum dolor amat lorem ipsum dolor amat',
+      'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
+    ]
   },
 ];
