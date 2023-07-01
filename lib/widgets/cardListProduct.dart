@@ -61,7 +61,7 @@ class _CardListProductState extends State<CardListProduct> {
                           ),
                         ),
                         Container(
-                          child: widget.data.action != 'view'
+                          child: widget.action != 'view'
                               ? Icon(
                                   Icons.remove_circle_outline,
                                   color: Colors.red,

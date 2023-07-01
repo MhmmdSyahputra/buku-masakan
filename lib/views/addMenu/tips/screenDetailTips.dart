@@ -26,16 +26,12 @@ class _ScreenDetailTipsState extends State<ScreenDetailTips> {
             children: [
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  children: [
-                    Text(
-                      widget.data.judul,
-                      style: TextStyle(
-                          color: ColorConstants.textWhite,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                child: Text(
+                  widget.data.judul,
+                  style: TextStyle(
+                      color: ColorConstants.textWhite,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Container(

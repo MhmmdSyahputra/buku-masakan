@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/addMenu/screenAddMenu.dart';
-import 'package:foodies/views/home/ScreenHome.dart';
+import 'package:foodies/views/home/InspirasiPage.dart';
+import 'package:foodies/views/home/ScreenMainHome.dart';
 import 'package:foodies/views/profile/screenProfile.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +35,7 @@ class _BottomNavMainState extends State<BottomNavMain> {
     Widget body = _widgetOptions.elementAt(_selectedIndex);
     switch (_selectedIndex) {
       case 0:
-        body = ScreenHome();
+        body = ScreenMainHome();
         break;
       case 1:
         body = ScreeenAddMenu();
