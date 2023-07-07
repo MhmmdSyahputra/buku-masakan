@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodies/model/resepModel.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
@@ -14,6 +15,9 @@ class TersimpanProfile extends StatefulWidget {
 }
 
 class _TersimpanProfileState extends State<TersimpanProfile> {
+  bool _search = false;
+  List<ResepModel> searchResults = [];
+  final TextEditingController _inputSearchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provResep = Provider.of<ResepProvider>(context);
@@ -42,7 +46,15 @@ class _TersimpanProfileState extends State<TersimpanProfile> {
             children: [
               Expanded(
                 child: TextField(
-                  // controller: _inputEmailUserController,
+                  style: TextStyle(color: ColorConstants.textWhite),
+                  onEditingComplete: () => setState(() {
+                    _search = true;
+                    searchResults = provResep.resepList
+                        .where((entry) => entry.judul.toLowerCase().contains(
+                            _inputSearchController.text.toLowerCase()))
+                        .toList();
+                  }),
+                  controller: _inputSearchController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.search,
@@ -66,25 +78,45 @@ class _TersimpanProfileState extends State<TersimpanProfile> {
             ],
           ),
         ),
-        // jika data ada maka tampilkan
-        checkMyDraf > 0
-            ? Column(
-                children: provResep.resepList
-                    .where((res) => mySaveId.contains(res.id))
-                    .map((res) {
-                  return CardListProduct(action: 'view', data: res);
-                }).toList(),
-              )
-            //jika tidak ada maka tampilkan page empty
-            : PageEmtpyCustom(
-                icon: Icon(
-                  Icons.book_rounded,
-                  size: 200,
-                ),
-                title: 'Belum ada resep yang tersimpan',
-                subtitle:
-                    'Kamu belum menyimpan resep apa pun. cari dan simpan resep untuk melihatnya disini!',
-                txtButton: 'Cari Item'),
+        _search //jika mode search
+            ? searchResults.length > 0
+                ? Column(
+                    children: searchResults
+                        .where((res) => mySaveId.contains(res.id))
+                        .map(
+                            (res) => CardListProduct(action: 'view', data: res))
+                        .toList(),
+                  )
+                : const Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      'Data Tidak Ada',
+                      style: TextStyle(
+                          color: ColorConstants.textWhite,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  )
+            :
+            // jika data ada maka tampilkan
+            checkMyDraf > 0
+                ? Column(
+                    children: provResep.resepList
+                        .where((res) => mySaveId.contains(res.id))
+                        .map((res) {
+                      return CardListProduct(action: 'view', data: res);
+                    }).toList(),
+                  )
+                //jika tidak ada maka tampilkan page empty
+                : PageEmtpyCustom(
+                    icon: Icon(
+                      Icons.book_rounded,
+                      size: 200,
+                    ),
+                    title: 'Belum ada resep yang tersimpan',
+                    subtitle:
+                        'Kamu belum menyimpan resep apa pun. cari dan simpan resep untuk melihatnya disini!',
+                    txtButton: ''),
       ],
     );
   }

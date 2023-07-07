@@ -8,7 +8,8 @@ class ResepModel {
   final String porsi;
   final String lamaWaktu;
   final String status;
-  final String cover;
+  final String? cover;
+  final ImageProvider? cover2;
   final List bahan;
   final List step;
 
@@ -20,7 +21,8 @@ class ResepModel {
     required this.porsi,
     required this.lamaWaktu,
     required this.status,
-    required this.cover,
+    this.cover,
+    this.cover2,
     required this.bahan,
     required this.step,
   });

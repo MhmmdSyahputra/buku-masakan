@@ -15,6 +15,10 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
     return Scaffold(
       backgroundColor: ColorConstants.themeColor,
       appBar: AppBar(
+        title: Text(
+          'Detail Resep',
+          style: TextStyle(color: ColorConstants.textWhite),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -46,6 +50,31 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${widget.data.cerita[0]}',
+                    style: TextStyle(
+                      color: ColorConstants.textWhite,
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Asal : ${widget.data.cerita[1]}',
+                    style: TextStyle(
+                      color: ColorConstants.textWhite,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: ListTile(
                 title: Text(
                   '${widget.data.user[0]}',
@@ -63,6 +92,52 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
             Divider(
               height: 1,
               color: ColorConstants.textWhite,
+            ),
+            ListTile(
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Lama Pembuatan',
+                      style: TextStyle(
+                        color: ColorConstants.textWhite,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Text(
+                      'Porsi',
+                      style: TextStyle(
+                        color: ColorConstants.textWhite,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '${widget.data.lamaWaktu}',
+                      style: TextStyle(
+                          color: ColorConstants.textWhite,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '${widget.data.porsi}',
+                      style: TextStyle(
+                          color: ColorConstants.textWhite,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),

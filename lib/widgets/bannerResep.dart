@@ -44,7 +44,9 @@ class _BannerResepState extends State<BannerResep> {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(widget.data.cover),
+            image: widget.data.cover != '' || widget.data.cover != null
+                ? AssetImage(widget.data.cover)
+                : widget.data.cover2,
           ),
         ),
         child: Container(
@@ -184,7 +186,7 @@ class _BannerResepState extends State<BannerResep> {
                                 ? Icons.bookmark
                                 : Icons.bookmark_add_outlined,
                             size: 20,
-                            color: statusDisLike
+                            color: mySaveId.contains(widget.data.id)
                                 ? ColorConstants.primaryColor
                                 : Colors.white,
                           ),

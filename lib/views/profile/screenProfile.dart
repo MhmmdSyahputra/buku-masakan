@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/login/screenLogin.dart';
+import 'package:foodies/views/profile/ScreenSetting.dart';
 import 'package:foodies/views/profile/resep/mainResepProfile.dart';
+import 'package:foodies/views/profile/screenUpdateProfile.dart';
 import 'package:foodies/views/profile/tersimpan/mainTersimpanProfile.dart';
 import 'package:provider/provider.dart';
 
@@ -35,18 +37,22 @@ class _ScreenProfileState extends State<ScreenProfile> {
             ),
           ),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${user.username}',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-            ),
-            Text(
-              '${user.email}',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-            ),
-          ],
+        title: GestureDetector(
+          onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ScreenUpdateProfile())),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${user.username}',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
+              Text(
+                '${user.email}',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
+            ],
+          ),
         ),
         actions: [
           IconButton(
@@ -58,13 +64,18 @@ class _ScreenProfileState extends State<ScreenProfile> {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              // Aksi yang ingin dilakukan saat tombol di tekan
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ScreenSetting()));
             },
           ),
           PopupMenuButton<MenuItem>(
               onSelected: (value) {
                 if (value == MenuItem.Profil) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ScreenUpdateProfile()));
                 } else if (value == MenuItem.Pengaturan) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ScreenSetting()));
                 } else if (value == MenuItem.Logout) {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => ScreenLogin()));
@@ -72,7 +83,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
               },
               itemBuilder: (context) => [
                     PopupMenuItem(
-                        value: MenuItem.Pengaturan, child: Text('Pengaturan')),
+                        value: MenuItem.Profil, child: Text('Profile')),
                     PopupMenuItem(
                         value: MenuItem.Pengaturan, child: Text('Pengaturan')),
                     PopupMenuItem(

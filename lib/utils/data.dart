@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:foodies/utils/myColorApp.dart';
+
 List listIsiKulkas = [
   {'name': 'Ikan'},
   {'name': 'Ayam'},
@@ -173,7 +176,6 @@ List listTips = [
     'id': '',
     'user': ['bintang sinaga', '@bangnaga52'],
     'judul': 'Tips Memasak Steak yang Lezat',
-    'imgTips': ['image1.jpg', 'image2.jpg', 'image3.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -183,7 +185,6 @@ List listTips = [
     'id': '',
     'user': ['angela wijaya', '@angelawijaya'],
     'judul': 'Tips Merawat Tanaman Hias di Dalam Ruangan',
-    'imgTips': ['image4.jpg', 'image5.jpg', 'image6.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -193,7 +194,6 @@ List listTips = [
     'id': '',
     'user': ['hendra wibowo', '@hendrawibowo'],
     'judul': 'Tips Mengatur Keuangan Pribadi',
-    'imgTips': ['image7.jpg', 'image8.jpg', 'image9.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -203,7 +203,6 @@ List listTips = [
     'id': '',
     'user': ['melissa tan', '@melissatan'],
     'judul': 'Tips Membangun Kebiasaan Membaca',
-    'imgTips': ['image10.jpg', 'image11.jpg', 'image12.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -213,7 +212,6 @@ List listTips = [
     'id': '',
     'user': ['david wijaya', '@davidwijaya'],
     'judul': 'Tips Efektif dalam Presentasi',
-    'imgTips': ['image13.jpg', 'image14.jpg', 'image15.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
@@ -223,10 +221,93 @@ List listTips = [
     'id': '',
     'user': ['lisa santoso', '@lisasantoso'],
     'judul': 'Tips Membangun Hubungan yang Sehat',
-    'imgTips': ['image16.jpg', 'image17.jpg', 'image18.jpg'],
     'step': [
       'lorem ipsum dolor amat lorem ipsum dolor amat',
       'lorem ipsum dolor amatlorem ipsum dolor amat,lorem ipsum dolor amatlorem ipsum dolor amat'
     ]
   },
+];
+
+List listSetting = [
+  {
+    'icon': Icon(
+      Icons.receipt,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Undang Teman'
+  },
+  {
+    'icon': Icon(
+      Icons.notification_important,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Preferensi Notifikasi'
+  },
+  {
+    'icon': Icon(
+      Icons.privacy_tip,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Kebijakan Privasi'
+  },
+  {
+    'icon': Icon(
+      Icons.rule,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Ketentuan Pemakaian'
+  },
+  {
+    'icon': Icon(
+      Icons.man_outlined,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Panduan Komunitas Foodies'
+  },
+  {
+    'icon': Icon(
+      Icons.block,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Pengguna yang diblokir'
+  },
+  {
+    'icon': Icon(
+      Icons.question_answer,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Pertanyaan yang sering ditanyakan'
+  },
+  {
+    'icon': Icon(
+      Icons.call,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Hubungi Kami'
+  },
+  {
+    'icon': Icon(
+      Icons.numbers,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Cek Versi Aplikasi Foodies'
+  },
+  {
+    'icon': Icon(
+      Icons.mode,
+      color: ColorConstants.textWhite,
+    ),
+    'name': 'Mode'
+  },
+];
+
+List listRandomImage = [
+  {'image': 'assets/images/randomImg/randomImg1.png'},
+  {'image': 'assets/images/randomImg/randomImg2.png'},
+  {'image': 'assets/images/randomImg/randomImg3.png'},
+  {'image': 'assets/images/randomImg/randomImg4.png'},
+  {'image': 'assets/images/randomImg/randomImg5.png'},
+  {'image': 'assets/images/randomImg/randomImg6.png'},
+  {'image': 'assets/images/randomImg/randomImg7.png'},
+  {'image': 'assets/images/randomImg/randomImg8.png'},
 ];

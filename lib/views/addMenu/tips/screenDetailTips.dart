@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:foodies/utils/globalFunction.dart';
 import 'package:foodies/utils/myColorApp.dart';
 
 class ScreenDetailTips extends StatefulWidget {
@@ -46,8 +47,7 @@ class _ScreenDetailTipsState extends State<ScreenDetailTips> {
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Image.asset(
-                                  'assets/images/imgResep/ChickenTeriyaki.png'),
+                              child: Image.asset(randomImage()),
                             ),
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10),

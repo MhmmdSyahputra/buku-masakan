@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:foodies/model/resepModel.dart';
+import 'package:foodies/providers/LoginRegisProvider.dart';
+import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/widgets/cardListProduct.dart';
+import 'package:foodies/widgets/pageEmpty.dart';
+import 'package:provider/provider.dart';
 
 class ResepMainProfile extends StatefulWidget {
   const ResepMainProfile({super.key});
@@ -11,8 +15,26 @@ class ResepMainProfile extends StatefulWidget {
 }
 
 class _ResepMainProfileState extends State<ResepMainProfile> {
+  bool _search = false;
+  List<ResepModel> searchResults = [];
+  final TextEditingController _inputSearchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final provResep = Provider.of<ResepProvider>(context);
+    final provIdUser = Provider.of<UserLoginProvider>(context);
+    final user = Provider.of<UserLoginProvider>(context)
+        .getUserById(provIdUser.idUserDoLogin);
+
+    final checkMyResep = provResep.resepList
+        .where((res) =>
+            res.status == 'publish' &&
+            res.user[0] == user.username &&
+            res.user[1] == user.email)
+        .map((res) {})
+        .toList()
+        .length;
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -23,7 +45,15 @@ class _ResepMainProfileState extends State<ResepMainProfile> {
               children: [
                 Expanded(
                   child: TextField(
-                    // controller: _inputEmailUserController,
+                    style: TextStyle(color: ColorConstants.textWhite),
+                    onEditingComplete: () => setState(() {
+                      _search = true;
+                      searchResults = provResep.resepList
+                          .where((entry) => entry.judul.toLowerCase().contains(
+                              _inputSearchController.text.toLowerCase()))
+                          .toList();
+                    }),
+                    controller: _inputSearchController,
                     decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.search,
@@ -47,53 +77,48 @@ class _ResepMainProfileState extends State<ResepMainProfile> {
               ],
             ),
           ),
-          Container(
-            child: Icon(
-              Icons.food_bank,
-              size: 200,
-            ),
-          ),
-          Container(
-            child: Column(
-              children: [
-                Text(
-                  'Buat catatan Masak',
-                  style: TextStyle(
-                      color: ColorConstants.textWhite,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  'Simpan catatan maskanmu dengan mudah dan aman di Cookpad.',
-                  style: TextStyle(
-                    color: ColorConstants.textWhite,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-              width: double.infinity,
-              height: 60,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  'Tulis Resep',
-                  style:
-                      TextStyle(fontSize: 18, color: ColorConstants.textBlack),
-                ),
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    primary: Color(0XFFF0F0F0)),
-              )),
+          _search //jika mode search
+              ? searchResults.length > 0
+                  ? Column(
+                      children: searchResults
+                          .where((res) =>
+                              res.status == 'publish' &&
+                              res.user[0] == user.username &&
+                              res.user[1] == user.email)
+                          .map((res) =>
+                              CardListProduct(action: 'view', data: res))
+                          .toList(),
+                    )
+                  : const Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        'Data Tidak Ada',
+                        style: TextStyle(
+                            color: ColorConstants.textWhite,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    )
+              : checkMyResep > 0
+                  ? Column(
+                      children: provResep.resepList
+                          .where((res) =>
+                              res.status == 'publish' &&
+                              res.user[0] == user.username &&
+                              res.user[1] == user.email)
+                          .map((res) {
+                        return CardListProduct(action: 'view', data: res);
+                      }).toList(),
+                    )
+                  : PageEmtpyCustom(
+                      icon: Icon(
+                        Icons.food_bank,
+                        size: 200,
+                      ),
+                      title: 'Buat catatan Masak',
+                      subtitle:
+                          'Simpan catatan maskanmu dengan mudah dan aman di Cookpad.',
+                      txtButton: 'Temukan Inspirasi Resep'),
         ],
       ),
     );

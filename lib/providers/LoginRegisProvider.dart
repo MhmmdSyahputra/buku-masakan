@@ -44,4 +44,15 @@ class UserLoginProvider with ChangeNotifier {
     _userLoginList.add(user);
     notifyListeners();
   }
+
+  // Metode untuk mengupdate data user berdasarkan ID
+  void updateUser(String id, UserLoginModel updatedUser) {
+    final index = _userLoginList.indexWhere((user) => user.id == id);
+    if (index >= 0) {
+      _userLoginList[index] = updatedUser;
+      notifyListeners();
+    } else {
+      throw Exception('User not found');
+    }
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/views/addMenu/resep/screenTambahResep.dart';
 
 class PageEmtpyCustom extends StatefulWidget {
   final Icon icon;
@@ -48,23 +49,29 @@ class _PageEmtpyCustomState extends State<PageEmtpyCustom> {
             ],
           ),
         ),
-        Container(
-            margin: EdgeInsets.symmetric(vertical: 30),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            width: double.infinity,
-            height: 60,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text(
-                '${widget.txtButton}',
-                style: TextStyle(fontSize: 18, color: ColorConstants.textBlack),
-              ),
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+        widget.txtButton.isNotEmpty
+            ? Container(
+                margin: EdgeInsets.symmetric(vertical: 30),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                width: double.infinity,
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ScreenTambahResep()));
+                  },
+                  child: Text(
+                    '${widget.txtButton}',
+                    style: TextStyle(
+                        fontSize: 18, color: ColorConstants.textBlack),
                   ),
-                  primary: Color(0XFFF0F0F0)),
-            )),
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      primary: Color(0XFFF0F0F0)),
+                ))
+            : Text('')
       ],
     );
   }

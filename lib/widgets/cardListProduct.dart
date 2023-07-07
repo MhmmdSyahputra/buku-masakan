@@ -25,10 +25,10 @@ class _CardListProductState extends State<CardListProduct> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          color: Color(0xFF374259),
+          color: ColorConstants.themeColor,
           elevation: 10,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -39,7 +39,7 @@ class _CardListProductState extends State<CardListProduct> {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage('assets/images/imgResep/Spaghetti.png'),
+                      image: AssetImage('${widget.data.cover}'),
                     ),
                   ),
                   margin: EdgeInsets.only(right: 10),
@@ -60,14 +60,6 @@ class _CardListProductState extends State<CardListProduct> {
                                 color: ColorConstants.textWhite),
                           ),
                         ),
-                        Container(
-                          child: widget.action != 'view'
-                              ? Icon(
-                                  Icons.remove_circle_outline,
-                                  color: Colors.red,
-                                )
-                              : null,
-                        )
                       ],
                     ),
                     SizedBox(

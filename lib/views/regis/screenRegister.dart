@@ -110,6 +110,7 @@ class _ScreenRegisterState extends State<ScreenRegister> {
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                     child: TextField(
+                      obscureText: mounted,
                       controller: _inputPasswordController,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.lock),

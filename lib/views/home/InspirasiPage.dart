@@ -1,10 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:foodies/model/resepModel.dart';
 import 'package:foodies/providers/LoginRegisProvider.dart';
 import 'package:foodies/providers/resepProvider.dart';
 import 'package:foodies/providers/tipsProvider.dart';
 import 'package:foodies/utils/data.dart';
 import 'package:foodies/utils/myColorApp.dart';
+import 'package:foodies/views/addMenu/resep/screenListResep.dart';
 import 'package:foodies/widgets/bannerResep.dart';
 import 'package:foodies/widgets/cardResep.dart';
 import 'package:foodies/widgets/cardTips.dart';
@@ -21,6 +23,9 @@ class _PageInspirasiState extends State<PageInspirasi> {
   final TextEditingController _inputSeacrhController = TextEditingController();
 
   String? _valueIsiKulkas;
+  List<ResepModel> dataWithChip = [];
+  List _chipSelected = [];
+
   @override
   Widget build(BuildContext context) {
     final provIdUser = Provider.of<UserLoginProvider>(context);
@@ -32,12 +37,6 @@ class _PageInspirasiState extends State<PageInspirasi> {
     List shuffledList =
         List.from(provResep.resepList); // Salin daftar resep ke daftar baru
     shuffledList.shuffle(Random()); // Acak urutan elemen dalam daftar baru
-
-    // void refreshItem() {
-    //   shuffledList =
-    //       List.from(provResep.resepList); // Salin daftar resep ke daftar baru
-    //   shuffledList.shuffle(Random()); // Acak urutan elemen dalam daftar baru
-    // }
 
     return SingleChildScrollView(
       child: Column(
@@ -74,17 +73,30 @@ class _PageInspirasiState extends State<PageInspirasi> {
                         padding: const EdgeInsets.symmetric(horizontal: 3),
                         child: ChoiceChip(
                           backgroundColor: Color(0xFF9DB2BF),
-                          selectedColor: _valueIsiKulkas == res['name']
+                          selectedColor: _chipSelected.contains(res['name'])
                               ? ColorConstants.primaryColor
                               : Color(0xFF9DB2BF),
                           label: Text(
                             res['name'],
                             style: TextStyle(color: Colors.white),
                           ),
-                          selected: _valueIsiKulkas == res['name'],
+                          selected: _chipSelected.contains(res['name']),
                           onSelected: (bool selected) {
                             setState(() {
-                              _valueIsiKulkas = selected ? res['name'] : null;
+                              if (selected) {
+                                _chipSelected.add(res['name']);
+                              } else {
+                                _chipSelected.remove(res['name']);
+                              }
+                              // _valueIsiKulkas = selected ? res['name'] : null;
+
+                              dataWithChip = provResep.resepList
+                                  .where((res) => res.status == 'publish')
+                                  .where((entry) => _chipSelected.every(
+                                      (chip) => entry.bahan.any((bahan) => bahan
+                                          .toLowerCase()
+                                          .contains(chip.toLowerCase()))))
+                                  .toList();
                             });
                           },
                         ),
@@ -104,44 +116,83 @@ class _PageInspirasiState extends State<PageInspirasi> {
                         fontSize: 14, color: ColorConstants.textWhite),
                   ),
                 ),
-                Container(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: provResep.resepList
-                          .where((res) => res.status == 'publish')
-                          .map((res) {
-                        return BannerResep(data: res);
-                      }).toList(),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        // controller: _inputEmailUserController,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: ColorConstants.textWhite,
+                _chipSelected.length != 0
+                    ? dataWithChip.length != 0
+                        ? Container(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: dataWithChip.map((res) {
+                                  return BannerResep(data: res);
+                                }).toList(),
+                              ),
+                            ),
+                          )
+                        : Center(
+                            child: Container(
+                              width: 200,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/notfound.png'))),
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: Text(
+                                  'Data Tidak ada',
+                                  style: TextStyle(
+                                      color: ColorConstants.textWhite,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          )
+                    : Container(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: provResep.resepList
+                                .where((res) => res.status == 'publish')
+                                .map((res) {
+                              return BannerResep(data: res);
+                            }).toList(),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                                20), // Ganti dengan radius yang diinginkan
-                          ),
-                          filled: true,
-                          fillColor: Color(0xFF9DB2BF),
-                          hintText: 'Temukan Ide Lainnya',
-                          hintStyle: TextStyle(
-                            color: ColorConstants.textWhite,
-                          ),
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                         ),
                       ),
-                    ),
-                  ],
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ScreenListResep())),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search,
+                                color: ColorConstants.textBlack,
+                              ),
+                              Text(
+                                'Temukan Ide Lainnya',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: ColorConstants.textBlack),
+                              ),
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              primary: Color(0XFFF0F0F0)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 20),
