@@ -39,7 +39,9 @@ class _CardListProductState extends State<CardListProduct> {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage('${widget.data.cover}'),
+                      image: widget.data.cover2 == null
+                          ? AssetImage('${widget.data.cover}')
+                          : widget.data.cover2,
                     ),
                   ),
                   margin: EdgeInsets.only(right: 10),

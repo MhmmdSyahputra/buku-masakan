@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies/utils/myColorApp.dart';
 import 'package:foodies/views/addMenu/resep/screenTambahResep.dart';
+import 'package:foodies/views/addMenu/resep/screenTambahResep2.dart';
 import 'package:foodies/views/addMenu/tips/screenTambahTips.dart';
 
 class ScreeenAddMenu extends StatefulWidget {

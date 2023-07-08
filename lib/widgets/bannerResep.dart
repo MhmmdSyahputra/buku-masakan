@@ -44,7 +44,7 @@ class _BannerResepState extends State<BannerResep> {
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: widget.data.cover != '' || widget.data.cover != null
+            image: widget.data.cover2 == null
                 ? AssetImage(widget.data.cover)
                 : widget.data.cover2,
           ),

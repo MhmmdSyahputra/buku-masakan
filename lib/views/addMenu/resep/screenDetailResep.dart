@@ -27,14 +27,14 @@ class _ScreenDetailResepState extends State<ScreenDetailResep> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              height: 200,
               width: double.infinity,
-              child: Container(
-                width: 100,
-                // height: 200,
-                alignment: Alignment.centerLeft,
-                child: Image.asset(
-                  widget.data.cover,
+              decoration: BoxDecoration(
+                image: DecorationImage(
                   fit: BoxFit.cover,
+                  image: widget.data.cover2 == null
+                      ? AssetImage(widget.data.cover)
+                      : widget.data.cover2,
                 ),
               ),
             ),
