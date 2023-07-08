@@ -5,11 +5,13 @@ class TipsModel {
   final List user;
   final String judul;
   final List step;
+  List? gambarStep;
 
   TipsModel({
     required this.id,
     required this.user,
     required this.judul,
     required this.step,
+    this.gambarStep,
   });
 }

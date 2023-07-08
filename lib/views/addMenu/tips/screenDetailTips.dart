@@ -45,9 +45,37 @@ class _ScreenDetailTipsState extends State<ScreenDetailTips> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: Image.asset(randomImage()),
+                            Card(
+                              color: ColorConstants.themeColor,
+                              child: widget.data.gambarStep != null
+                                  ? widget.data.gambarStep[index] == null
+                                      ? Container(
+                                          width: double.infinity,
+                                          height: 200,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          child: Icon(
+                                            Icons.image,
+                                            color: ColorConstants.textWhite,
+                                            size: 30,
+                                          ))
+                                      : Container(
+                                          width: double.infinity,
+                                          height: 200,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10),
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                            image:
+                                                widget.data.gambarStep[index]!,
+                                            fit: BoxFit.cover,
+                                          )),
+                                        )
+                                  : Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                      child: Image.asset(randomImage()),
+                                    ),
                             ),
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10),
